@@ -1,0 +1,73 @@
+> Task :compileJava FAILED
+/home/prembamrung/Documents/Valdom/metaheuristique/working/src/main/java/jobshop/solvers/DescentSolver.java:72: error: cannot find symbol
+            Task stockage = order.tasks_by_machine[this.machine][t1];
+                                 ^
+  symbol:   variable tasks_by_machine
+  location: variable order of type ResourceOrder
+/home/prembamrung/Documents/Valdom/metaheuristique/working/src/main/java/jobshop/solvers/DescentSolver.java:73: error: cannot find symbol
+            order.tasks_by_machine[this.machine][t1] = order.tasks_by_machine[this.machine][t2];
+                 ^
+  symbol:   variable tasks_by_machine
+  location: variable order of type ResourceOrder
+/home/prembamrung/Documents/Valdom/metaheuristique/working/src/main/java/jobshop/solvers/DescentSolver.java:73: error: cannot find symbol
+            order.tasks_by_machine[this.machine][t1] = order.tasks_by_machine[this.machine][t2];
+                                                            ^
+  symbol:   variable tasks_by_machine
+  location: variable order of type ResourceOrder
+/home/prembamrung/Documents/Valdom/metaheuristique/working/src/main/java/jobshop/solvers/DescentSolver.java:74: error: cannot find symbol
+            order.tasks_by_machine[this.machine][t2] = stockage;                                                                                                                                                                                        
+                 ^
+  symbol:   variable tasks_by_machine
+  location: variable order of type ResourceOrder
+/home/prembamrung/Documents/Valdom/metaheuristique/working/src/main/java/jobshop/solvers/DescentSolver.java:103: error: cannot find symbol
+                        if (neighbor_scheduling.makespan() < best_neighbors.toSchedule().makespan()) {
+                                                             ^
+  symbol:   variable best_neighbors
+  location: class DescentSolver
+/home/prembamrung/Documents/Valdom/metaheuristique/working/src/main/java/jobshop/solvers/DescentSolver.java:143: error: cannot find symbol
+                    for(int j = 0; j < order.tasks_by_machine[machine_number].length; j++){
+                                            ^
+  symbol:   variable tasks_by_machine
+  location: variable order of type ResourceOrder
+/home/prembamrung/Documents/Valdom/metaheuristique/working/src/main/java/jobshop/solvers/DescentSolver.java:144: error: cannot find symbol
+                        if(start_task.equals(order.tasks_by_machine[machine_number][j])){
+                                                  ^
+  symbol:   variable tasks_by_machine
+  location: variable order of type ResourceOrder
+/home/prembamrung/Documents/Valdom/metaheuristique/working/src/main/java/jobshop/solvers/DescentSolver.java:161: error: cannot find symbol
+            for(int j = 0; j < order.tasks_by_machine[machine_number].length; j++){
+                                    ^
+  symbol:   variable tasks_by_machine
+  location: variable order of type ResourceOrder
+/home/prembamrung/Documents/Valdom/metaheuristique/working/src/main/java/jobshop/solvers/DescentSolver.java:162: error: cannot find symbol
+                if(start_task.equals(order.tasks_by_machine[machine_number][j])){
+                                          ^
+  symbol:   variable tasks_by_machine
+  location: variable order of type ResourceOrder
+/home/prembamrung/Documents/Valdom/metaheuristique/working/src/main/java/jobshop/solvers/DescentSolver.java:166: error: cannot find symbol
+            int end_task = cpt + nombreTask - 1;
+                                 ^
+  symbol:   variable nombreTask
+  location: class DescentSolver
+/home/prembamrung/Documents/Valdom/metaheuristique/working/src/main/java/jobshop/solvers/DescentSolver.java:177: error: cannot find symbol
+            neighbors_list.add(new Swap(block.machine, block.start_task,        block.start_task + 1));
+                                                            ^
+  symbol:   variable start_task
+  location: variable block of type Block
+/home/prembamrung/Documents/Valdom/metaheuristique/working/src/main/java/jobshop/solvers/DescentSolver.java:177: error: cannot find symbol
+            neighbors_list.add(new Swap(block.machine, block.start_task,        block.start_task + 1));
+                                                                                     ^
+  symbol:   variable start_task
+  location: variable block of type Block
+/home/prembamrung/Documents/Valdom/metaheuristique/working/src/main/java/jobshop/solvers/DescentSolver.java:178: error: cannot find symbol
+            neighbors_list.add(new Swap(block.machine, block.end_task,  block.end_task - 1));
+                                                            ^
+  symbol:   variable end_task
+  location: variable block of type Block
+/home/prembamrung/Documents/Valdom/metaheuristique/working/src/main/java/jobshop/solvers/DescentSolver.java:178: error: cannot find symbol
+            neighbors_list.add(new Swap(block.machine, block.end_task,  block.end_task - 1));
+                                                                             ^
+  symbol:   variable end_task
+  location: variable block of type Block
+14 errors
+

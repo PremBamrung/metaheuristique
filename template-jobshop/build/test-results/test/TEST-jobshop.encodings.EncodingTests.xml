@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="jobshop.encodings.EncodingTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-01-29T08:49:43" hostname="insa-20663" time="0.026">
+<testsuite name="jobshop.encodings.EncodingTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-02-01T10:13:37" hostname="desktop" time="0.024">
   <properties/>
   <testcase name="testBasicSolver" classname="jobshop.encodings.EncodingTests" time="0.02"/>
-  <testcase name="testJobNumbers" classname="jobshop.encodings.EncodingTests" time="0.006"/>
-  <system-out><![CDATA[jobshop.Schedule@5f7468fd
+  <testcase name="testJobNumbers" classname="jobshop.encodings.EncodingTests" time="0.003"/>
+  <system-out><![CDATA[jobshop.Schedule@26537985
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="jobshop.encodings.EncodingTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-03-13T11:04:14" hostname="desktop" time="0.021">
+  <properties/>
+  <testcase name="testBasicSolver" classname="jobshop.encodings.EncodingTests" time="0.018"/>
+  <testcase name="testJobNumbers" classname="jobshop.encodings.EncodingTests" time="0.003"/>
+  <system-out><![CDATA[jobshop.Schedule@615a92e0
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
