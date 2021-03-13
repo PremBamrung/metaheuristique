@@ -1,96 +1,102 @@
 package jobshop.solvers;
 
-import jobshop.Instance;
-import jobshop.Result;
-import jobshop.Schedule;
-import jobshop.Solver;
-import jobshop.encodings.ResourceOrder;
-import jobshop.encodings.Task;
-import jobshop.solvers.DescentSolver.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import jobshop.Solver;
+import jobshop.solvers.DescentSolver.*;
 import static jobshop.solvers.DescentSolver.blocksOfCriticalPath;
+
+import jobshop.Instance;
+import jobshop.Result;
+import jobshop.Schedule;
+
+import jobshop.encodings.ResourceOrder;
+import jobshop.encodings.Task;
 
 public class TabouSolver extends DescentSolver {
 
     @Override
-    public Result solve(Instance instance, long deadline) {
+    public Result solve(Instance instance, long stop_time) {
+		
+		int nb_iter = 0 ;
+        int max_iter = 30 ;
+        int[][] taboo_solution = new int[instance.numTasks*instance.numJobs][instance.numJobs*instance.numTasks] ;
 
-        int[][] solutionTaboo = new int[instance.numTasks*instance.numJobs][instance.numJobs*instance.numTasks] ;
-        int nombreIter = 0 ;
-        int maxIter = 50 ;
-        int dureeTaboo = 2 ;
-
-        //Schedule bestSolution = new Gloutonne(Gloutonne.enumPriority.EST_LRPT).solve(instance, deadline).schedule;
-        Schedule bestSolution = new DescentSolver().solve(instance, deadline).schedule;
+        Schedule best_sol = new DescentSolver().solve(instance, stop_time).schedule;
 
 
-        ResourceOrder currentResourceOrder= new ResourceOrder(bestSolution) ;
-        ResourceOrder bestResourceOrder = currentResourceOrder.copy() ;
+        ResourceOrder current_RO= new ResourceOrder(best_sol) ;
+        ResourceOrder best_RO = current_RO.copy() ;
 
-        int meilleurMakespan;
+        int best_makespan;
 
-        while((nombreIter <= maxIter) && (deadline - System.currentTimeMillis() > 1)) {
-            nombreIter++ ;
+        while((nb_iter <= max_iter) && (stop_time - System.currentTimeMillis() > 1)) {
+            nb_iter++ ;
 
             Task t1;
             Task t2;
-            List<Task> listTask = currentResourceOrder.toSchedule().criticalPath() ;
-            List<Swap> listeSwap = new ArrayList<>() ;
-            List<Block> listBlock = blocksOfCriticalPath(currentResourceOrder) ;
-            for(int block = 0; block < listBlock.size(); block++) {
-                listeSwap.addAll(neighbors(listBlock.get(block))) ;
+            List<Task> task_list = current_RO.toSchedule().criticalPath() ;
+            List<Swap> swap_list = new ArrayList<>() ;
+            List<Block> block_list = blocksOfCriticalPath(current_RO) ;
+            for(int block = 0; block < block_list.size(); block++) {
+                swap_list.addAll(neighbors(block_list.get(block))) ;
             }
+			
+            int best_swap_id = -1;
+            best_makespan = Integer.MAX_VALUE ;
 
-            //initialisation
-            int indexBestSwap = -1;
-            //bestSpan = 99999999;
-            meilleurMakespan = Integer.MAX_VALUE ;
+            for(int swap = 0; swap < swap_list.size(); swap++) 
+				{
+                ResourceOrder test_RO = current_RO.copy() ;
+                Swap current_swap = swap_list.get(swap) ;
 
-            for(int swap = 0; swap < listeSwap.size(); swap++) {
-                ResourceOrder testResourceOrder = currentResourceOrder.copy() ;
-                Swap currentSwap = listeSwap.get(swap) ;
-
-                if (currentSwap.t1 < listTask.size()){
-                    t1 = listTask.get(currentSwap.t1);
-                } else { //NullPointer sinon
+                if (current_swap.t1 < task_list.size())
+				{
+                    t1 = task_list.get(current_swap.t1);
+                } 
+					else 
+				{ 
                     t1 = null;
                 }
 
 
-                if (currentSwap.t2 < listTask.size()){
-                    t2 = listTask.get(currentSwap.t2);
-                } else { //NullPointer sinon
+                if (current_swap.t2 < task_list.size())
+				{
+                    t2 = task_list.get(current_swap.t2);
+                } 
+					else 
+				{ 
                     t2 = null;
                 }
 
-                currentSwap.applyOn(testResourceOrder) ;
+                current_swap.applyOn(test_RO) ;
 
-                //on regarde si le résultat est améliorant
-                if ((t1 == null) || (t2 == null)){ //NullPointer sinon
+                //is better result ?
+                if ((t1 == null) || (t2 == null))
+				{
                     break;
-                } else if ((testResourceOrder.toSchedule().makespan() < meilleurMakespan) && (nombreIter >= solutionTaboo[t1.job * instance.numTasks + t1.task][t2.job * instance.numTasks + t2.task])) {
-                        meilleurMakespan = testResourceOrder.toSchedule().makespan();
-                        bestResourceOrder = testResourceOrder.copy();
-                        indexBestSwap = swap;
-                    }
+				} 
+					else if ((test_RO.toSchedule().makespan() < best_makespan) && (nb_iter >= taboo_solution[t1.job * instance.numTasks + t1.task][t2.job * instance.numTasks + t2.task])) 
+				{
+                        best_makespan = test_RO.toSchedule().makespan();
+                        best_RO = test_RO.copy();
+                        best_swap_id = swap;
+				}
                 }
 
 
-            if  (indexBestSwap != -1) {
-                currentResourceOrder = bestResourceOrder.copy();
-                //fin de parcours, on récupère le meilleur
-                Swap bestSwap = listeSwap.get(indexBestSwap);
-                t1 = listTask.get(bestSwap.t1);
-                t2 = listTask.get(bestSwap.t2);
-                //ajout dans matrice
-                solutionTaboo[t2.job * instance.numTasks + t2.task][t1.job * instance.numTasks + t1.task] = nombreIter + dureeTaboo;
+            if  (best_swap_id != -1) {
+                current_RO = best_RO.copy();
+                //get best solution
+                Swap best_swap = swap_list.get(best_swap_id);
+                t1 = task_list.get(best_swap.t1);
+                t2 = task_list.get(best_swap.t2);
+                taboo_solution[t2.job * instance.numTasks + t2.task][t1.job * instance.numTasks + t1.task] = nb_iter + 2;
             }
 
         }
-        return new Result(instance, bestResourceOrder.toSchedule(), Result.ExitCause.Timeout) ;
+        return new Result(instance, best_RO.toSchedule(), Result.ExitCause.Timeout) ;
     }
 }
 

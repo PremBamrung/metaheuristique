@@ -1,5 +1,11 @@
+workdir=$(pwd)
 #all ft and la instances
-java -jar build/libs/JSP.jar --solver basic Descent Tabou random SPT LRPT EST_LRPT EST_SPT --instance ft06 ft10 ft20 la01 la02 la03 la04 la05 la06 la07 la08 la09 la10 la11 la12 la13 la14 la15 la16 la17 la18 la19 la20 la21 la22 la23 la24 la25 la26 la27 la28 la29 la30 la31 la32 la33 la34 la35 la36 la37 la38 la39 la40 > benchmark.txt
+# java -jar build/libs/JSP.jar --solver basic Descent Tabou random SPT LRPT EST_LRPT EST_SPT --instance ft06 ft10 ft20 la01 la02 la03 la04 la05 la06 la07 la08 la09 la10 la11 la12 la13 la14 la15 la16 la17 la18 la19 la20 la21 la22 la23 la24 la25 la26 la27 la28 la29 la30 la31 la32 la33 la34 la35 la36 la37 la38 la39 la40 > benchmark.txt
+# mv benchmark.txt $workdir/data/benchmark.txt
+
+# descent ft and la instances
+java -jar build/libs/JSP.jar --solver basic Descent --instance ft06 ft10 ft20 la01 la02 la03 la04 la05 la06 la07 la08 la09 la10 la11 la12 la13 la14 la15 la16 la17 la18 la19 la20 la21 la22 la23 la24 la25 la26 la27 la28 la29 la30 la31 la32 la33 la34 la35 la36 la37 la38 la39 la40 > descent.txt
+mv descent.txt $workdir/data/descent.txt
 
 #subsample
 #java -jar build/libs/JSP.jar --solver basic Descent Tabou random SPT LRPT EST_LRPT EST_SPT --instance ft06 ft10 la01 la02 la03 la04 > benchmark.txt

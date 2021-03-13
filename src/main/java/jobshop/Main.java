@@ -25,10 +25,14 @@ public class Main {
         solvers.put("random", new RandomSolver());
         solvers.put("Descent", new DescentSolver());
         solvers.put("Tabou",  new TabouSolver());
-        solvers.put("SPT", 	    new GreedySolver(EnumPriority.SPT));
-        solvers.put("LRPT",     new GreedySolver(EnumPriority.LRPT));
-        solvers.put("EST_LRPT",     new GreedySolver(EnumPriority.EST_LRPT));
-        solvers.put("EST_SPT",     new GreedySolver(EnumPriority.EST_SPT));
+        // solvers.put("SPT", 	    new GreedySolver(EnumPriority.SPT));
+        // solvers.put("LRPT",     new GreedySolver(EnumPriority.LRPT));
+        // solvers.put("EST_LRPT",     new GreedySolver(EnumPriority.EST_LRPT));
+        // solvers.put("EST_SPT",     new GreedySolver(EnumPriority.EST_SPT));
+        solvers.put("SPT", 	    new GreedySolverSPT());
+        solvers.put("LRPT",     new GreedySolverLRPT());
+        solvers.put("EST_LRPT",     new GreedySolverEST_LRPT());
+        solvers.put("EST_SPT",     new GreedySolverEST_SPT());
     }
 
 

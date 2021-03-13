@@ -79,7 +79,13 @@ public class DescentSolver implements Solver {
     @Override
     public Result solve(Instance instance, long deadline) {
 
-        Schedule best_sol = new GreedySolver(GreedySolver.enumPriority.EST_LRPT).solve(instance, deadline).schedule;
+        // Schedule best_sol = new GreedySolver(GreedySolver.enumPriority.EST_LRPT).solve(instance, deadline).schedule;
+        // Schedule best_sol = new GreedySolverEST_LRPT().solve(instance, deadline).schedule;
+        // Schedule best_sol = new GreedySolverEST_SPT().solve(instance, deadline).schedule;
+        // Schedule best_sol = new GreedySolverLRPT().solve(instance, deadline).schedule;
+        Schedule best_sol = new GreedySolverSPT().solve(instance, deadline).schedule;
+
+
 
         List<Block> blocks = blocksOfCriticalPath(new ResourceOrder(best_sol));
 
