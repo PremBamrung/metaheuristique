@@ -18,7 +18,7 @@ public class TabouSolver extends DescentSolver {
 
     @Override
     public Result solve(Instance instance, long stop_time) {
-		
+
 		int nb_iter = 0 ;
         int max_iter = 30 ;
         int[][] taboo_solution = new int[instance.numTasks*instance.numJobs][instance.numJobs*instance.numTasks] ;
@@ -42,11 +42,11 @@ public class TabouSolver extends DescentSolver {
             for(int block = 0; block < block_list.size(); block++) {
                 swap_list.addAll(neighbors(block_list.get(block))) ;
             }
-			
+
             int best_swap_id = -1;
             best_makespan = Integer.MAX_VALUE ;
 
-            for(int swap = 0; swap < swap_list.size(); swap++) 
+            for(int swap = 0; swap < swap_list.size(); swap++)
 				{
                 ResourceOrder test_RO = current_RO.copy() ;
                 Swap current_swap = swap_list.get(swap) ;
@@ -54,9 +54,9 @@ public class TabouSolver extends DescentSolver {
                 if (current_swap.t1 < task_list.size())
 				{
                     t1 = task_list.get(current_swap.t1);
-                } 
-					else 
-				{ 
+                }
+					else
+				{
                     t1 = null;
                 }
 
@@ -64,9 +64,9 @@ public class TabouSolver extends DescentSolver {
                 if (current_swap.t2 < task_list.size())
 				{
                     t2 = task_list.get(current_swap.t2);
-                } 
-					else 
-				{ 
+                }
+					else
+				{
                     t2 = null;
                 }
 
@@ -76,8 +76,8 @@ public class TabouSolver extends DescentSolver {
                 if ((t1 == null) || (t2 == null))
 				{
                     break;
-				} 
-					else if ((test_RO.toSchedule().makespan() < best_makespan) && (nb_iter >= taboo_solution[t1.job * instance.numTasks + t1.task][t2.job * instance.numTasks + t2.task])) 
+				}
+					else if ((test_RO.toSchedule().makespan() < best_makespan) && (nb_iter >= taboo_solution[t1.job * instance.numTasks + t1.task][t2.job * instance.numTasks + t2.task]))
 				{
                         best_makespan = test_RO.toSchedule().makespan();
                         best_RO = test_RO.copy();
